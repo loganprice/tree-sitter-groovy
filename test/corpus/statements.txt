@@ -1,0 +1,150 @@
+==================
+Package and Imports
+==================
+package com.example.build
+
+import com.example.utils.*
+import static com.example.Constants.DEFAULT_NAME
+import com.example.Service as MyService
+---
+
+(source_file
+  (package_declaration
+    (qualified_identifier
+      (identifier)
+      (identifier)
+      (identifier)))
+  (import_declaration
+    (import_name
+      (identifier)
+      (identifier)
+      (identifier)
+      (wildcard_import)))
+  (import_declaration
+    (import_name
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)))
+  (import_declaration
+    (import_name
+      (identifier)
+      (identifier)
+      (identifier))
+    (identifier)))
+
+==================
+Classes and Enums
+==================
+class Calculator extends BaseCalc implements Serializable {
+    private int counter = 0
+
+    def add(int a, int b) {
+        return a + b
+    }
+}
+
+enum Status {
+    STARTING, RUNNING, STOPPED
+}
+---
+
+(source_file
+  (class_declaration
+    (identifier)
+    (superclass
+      (identifier))
+    (interfaces
+      (identifier))
+    (class_body
+      (variable_declaration
+        (modifier)
+        (primitive_type)
+        (variable_declarator
+          (identifier)
+          (literal
+            (number_literal))))
+      (method_declaration
+        (identifier)
+        (formal_parameters
+          (formal_parameter
+            (primitive_type)
+            (identifier))
+          (formal_parameter
+            (primitive_type)
+            (identifier)))
+        (block
+          (return_statement
+            (binary_expression
+              (identifier)
+              (identifier)))))))
+  (enum_declaration
+    (identifier)
+    (enum_body
+      (enum_constant
+        (identifier))
+      (enum_constant
+        (identifier))
+      (enum_constant
+        (identifier)))))
+
+==================
+Control Flow
+==================
+if (x > 0) {
+    println 'positive'
+} else {
+    println 'non-positive'
+}
+
+for (item in items) {
+    println item
+}
+
+while (count > 0) {
+    count--
+}
+---
+
+(source_file
+  (if_statement
+    (parenthesized_expression
+      (binary_expression
+        (identifier)
+        (literal
+          (number_literal))))
+    (block
+      (expression_statement
+        (command_expression
+          (identifier)
+          (command_argument_list
+            (literal
+              (string_literal
+                (single_quote_string)))))))
+    (block
+      (expression_statement
+        (command_expression
+          (identifier)
+          (command_argument_list
+            (literal
+              (string_literal
+                (single_quote_string))))))))
+  (for_in_statement
+    (identifier)
+    (identifier)
+    (block
+      (expression_statement
+        (command_expression
+          (identifier)
+          (command_argument_list
+            (identifier))))))
+  (while_statement
+    (parenthesized_expression
+      (binary_expression
+        (identifier)
+        (literal
+          (number_literal))))
+    (block
+      (expression_statement
+        (unary_expression
+          (identifier))))))

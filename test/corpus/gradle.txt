@@ -1,0 +1,196 @@
+==================
+Gradle Plugins Block
+==================
+plugins {
+    id 'application'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.0'
+}
+---
+
+(source_file
+  (expression_statement
+    (closure_call_expression
+      (identifier)
+      (closure
+        (expression_statement
+          (command_expression
+            (identifier)
+            (command_argument_list
+              (literal
+                (string_literal
+                  (single_quote_string))))))
+        (expression_statement
+          (command_expression
+            (identifier)
+            (command_argument_list
+              (literal
+                (string_literal
+                  (single_quote_string))))))
+        (expression_statement
+          (command_expression
+            (identifier)
+            (command_argument_list
+              (literal
+                (string_literal
+                  (single_quote_string))))))))))
+
+==================
+Gradle Repositories and Dependencies
+==================
+repositories {
+    mavenCentral()
+    google()
+    maven {
+        url 'https://repo.example.com/maven'
+    }
+}
+
+dependencies {
+    implementation 'org.slf4j:slf4j-api:2.0.0'
+    testImplementation 'junit:junit:4.13.2'
+    runtimeOnly(group: 'org.postgresql', name: 'postgresql', version: '42.6.0')
+}
+---
+
+(source_file
+  (expression_statement
+    (closure_call_expression
+      (identifier)
+      (closure
+        (expression_statement
+          (method_call
+            (identifier)
+            (argument_list)))
+        (expression_statement
+          (method_call
+            (identifier)
+            (argument_list)))
+        (expression_statement
+          (closure_call_expression
+            (identifier)
+            (closure
+              (expression_statement
+                (command_expression
+                  (identifier)
+                  (command_argument_list
+                    (literal
+                      (string_literal
+                        (single_quote_string))))))))))))
+  (expression_statement
+    (closure_call_expression
+      (identifier)
+      (closure
+        (expression_statement
+          (command_expression
+            (identifier)
+            (command_argument_list
+              (literal
+                (string_literal
+                  (single_quote_string))))))
+        (expression_statement
+          (command_expression
+            (identifier)
+            (command_argument_list
+              (literal
+                (string_literal
+                  (single_quote_string))))))
+        (expression_statement
+          (method_call
+            (identifier)
+            (argument_list
+              (named_argument
+                (identifier)
+                (literal
+                  (string_literal
+                    (single_quote_string))))
+              (named_argument
+                (identifier)
+                (literal
+                  (string_literal
+                    (single_quote_string))))
+              (named_argument
+                (identifier)
+                (literal
+                  (string_literal
+                    (single_quote_string)))))))))))
+
+==================
+Gradle Tasks and Properties
+==================
+group = 'com.example'
+version = '1.0.0'
+
+tasks.register('myTask', Copy) {
+    from 'src'
+    into 'build/output'
+}
+---
+
+(source_file
+  (expression_statement
+    (assignment_expression
+      (identifier)
+      (literal
+        (string_literal
+          (single_quote_string)))))
+  (expression_statement
+    (assignment_expression
+      (identifier)
+      (literal
+        (string_literal
+          (single_quote_string)))))
+  (expression_statement
+    (method_call
+      (field_access
+        (identifier)
+        (identifier))
+      (argument_list
+        (literal
+          (string_literal
+            (single_quote_string)))
+        (identifier))
+      (closure
+        (expression_statement
+          (command_expression
+            (identifier)
+            (command_argument_list
+              (literal
+                (string_literal
+                  (single_quote_string))))))
+        (expression_statement
+          (command_expression
+            (identifier)
+            (command_argument_list
+              (literal
+                (string_literal
+                  (single_quote_string))))))))))
+
+==================
+Gradle Settings
+==================
+rootProject.name = 'my-app'
+include 'app', 'core', 'utils'
+---
+
+(source_file
+  (expression_statement
+    (assignment_expression
+      (field_access
+        (identifier)
+        (identifier))
+      (literal
+        (string_literal
+          (single_quote_string)))))
+  (expression_statement
+    (command_expression
+      (identifier)
+      (command_argument_list
+        (literal
+          (string_literal
+            (single_quote_string)))
+        (literal
+          (string_literal
+            (single_quote_string)))
+        (literal
+          (string_literal
+            (single_quote_string)))))))

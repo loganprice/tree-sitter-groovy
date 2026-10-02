@@ -1,0 +1,204 @@
+==================
+Closures
+==================
+def f = { it -> println it }
+def add = { int a, int b -> a + b }
+def simple = { println 'hello' }
+---
+
+(source_file
+  (variable_declaration
+    (variable_declarator
+      (identifier)
+      (closure
+        (closure_parameters
+          (closure_parameter
+            (identifier)))
+        (expression_statement
+          (command_expression
+            (identifier)
+            (command_argument_list
+              (identifier)))))))
+  (variable_declaration
+    (variable_declarator
+      (identifier)
+      (closure
+        (closure_parameters
+          (closure_parameter
+            (primitive_type)
+            (identifier))
+          (closure_parameter
+            (primitive_type)
+            (identifier)))
+        (expression_statement
+          (binary_expression
+            (identifier)
+            (identifier))))))
+  (variable_declaration
+    (variable_declarator
+      (identifier)
+      (closure
+        (expression_statement
+          (command_expression
+            (identifier)
+            (command_argument_list
+              (literal
+                (string_literal
+                  (single_quote_string))))))))))
+
+==================
+Collections
+==================
+def list = [1, 2, 3]
+def emptyList = []
+def map = [name: 'Groovy', version: 4]
+def emptyMap = [:]
+---
+
+(source_file
+  (variable_declaration
+    (variable_declarator
+      (identifier)
+      (list_literal
+        (literal
+          (number_literal))
+        (literal
+          (number_literal))
+        (literal
+          (number_literal)))))
+  (variable_declaration
+    (variable_declarator
+      (identifier)
+      (list_literal)))
+  (variable_declaration
+    (variable_declarator
+      (identifier)
+      (map_literal
+        (named_argument
+          (identifier)
+          (literal
+            (string_literal
+              (single_quote_string))))
+        (named_argument
+          (identifier)
+          (literal
+            (number_literal))))))
+  (variable_declaration
+    (variable_declarator
+      (identifier)
+      (map_literal))))
+
+==================
+Navigation and Elvis
+==================
+def city = user?.address?.city
+def displayName = name ?: 'Anonymous'
+---
+
+(source_file
+  (variable_declaration
+    (variable_declarator
+      (identifier)
+      (safe_field_access
+        (safe_field_access
+          (identifier)
+          (identifier))
+        (identifier))))
+  (variable_declaration
+    (variable_declarator
+      (identifier)
+      (elvis_expression
+        (identifier)
+        (literal
+          (string_literal
+            (single_quote_string)))))))
+
+==================
+String Literals and Interpolation
+==================
+def s1 = 'single quoted'
+def s2 = '''triple single'''
+def s3 = "Hello $name"
+def s4 = "Sum is ${a + b}"
+def s5 = """multiline $name"""
+def s6 = $/path/to/$file/$
+---
+
+(source_file
+  (variable_declaration
+    (variable_declarator
+      (identifier)
+      (literal
+        (string_literal
+          (single_quote_string)))))
+  (variable_declaration
+    (variable_declarator
+      (identifier)
+      (literal
+        (string_literal
+          (triple_single_quote_string)))))
+  (variable_declaration
+    (variable_declarator
+      (identifier)
+      (literal
+        (string_literal
+          (double_quote_string
+            (string_content)
+            (interpolation
+              (variable_ref)))))))
+  (variable_declaration
+    (variable_declarator
+      (identifier)
+      (literal
+        (string_literal
+          (double_quote_string
+            (string_content)
+            (interpolation
+              (binary_expression
+                (identifier)
+                (identifier))))))))
+  (variable_declaration
+    (variable_declarator
+      (identifier)
+      (literal
+        (string_literal
+          (triple_double_quote_string
+            (triple_string_content)
+            (interpolation
+              (variable_ref)))))))
+  (variable_declaration
+    (variable_declarator
+      (identifier)
+      (literal
+        (string_literal
+          (dollar_slashy_string
+            (dollar_slashy_content))))))
+  (expression_statement
+    (binary_expression
+      (identifier)
+      (identifier))))
+
+==================
+Ranges
+==================
+def r1 = 1..10
+def r2 = 0..<10
+---
+
+(source_file
+  (variable_declaration
+    (variable_declarator
+      (identifier)
+      (range_expression
+        (literal
+          (number_literal))
+        (literal
+          (number_literal)))))
+  (variable_declaration
+    (variable_declarator
+      (identifier)
+      (range_expression
+        (literal
+          (number_literal))
+        (literal
+          (number_literal))))))

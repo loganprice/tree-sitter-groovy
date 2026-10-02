@@ -1,0 +1,282 @@
+==================
+Declarative Pipeline
+==================
+pipeline {
+    agent any
+    environment {
+        DISABLE_AUTH = 'true'
+        DB_ENGINE    = 'sqlite'
+    }
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building...'
+                sh 'make build'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'make check'
+                junit '**/target/*.xml'
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+        failure {
+            mail to: 'team@example.com', subject: 'Build Failed'
+        }
+    }
+}
+---
+
+(source_file
+  (expression_statement
+    (closure_call_expression
+      (identifier)
+      (closure
+        (expression_statement
+          (command_expression
+            (identifier)
+            (command_argument_list
+              (identifier))))
+        (expression_statement
+          (closure_call_expression
+            (identifier)
+            (closure
+              (expression_statement
+                (assignment_expression
+                  (identifier)
+                  (literal
+                    (string_literal
+                      (single_quote_string)))))
+              (expression_statement
+                (assignment_expression
+                  (identifier)
+                  (literal
+                    (string_literal
+                      (single_quote_string))))))))
+        (expression_statement
+          (closure_call_expression
+            (identifier)
+            (closure
+              (expression_statement
+                (method_call
+                  (identifier)
+                  (argument_list
+                    (literal
+                      (string_literal
+                        (single_quote_string))))
+                  (closure
+                    (expression_statement
+                      (closure_call_expression
+                        (identifier)
+                        (closure
+                          (expression_statement
+                            (command_expression
+                              (identifier)
+                              (command_argument_list
+                                (literal
+                                  (string_literal
+                                    (single_quote_string))))))
+                          (expression_statement
+                            (command_expression
+                              (identifier)
+                              (command_argument_list
+                                (literal
+                                  (string_literal
+                                    (single_quote_string))))))))))))
+              (expression_statement
+                (method_call
+                  (identifier)
+                  (argument_list
+                    (literal
+                      (string_literal
+                        (single_quote_string))))
+                  (closure
+                    (expression_statement
+                      (closure_call_expression
+                        (identifier)
+                        (closure
+                          (expression_statement
+                            (command_expression
+                              (identifier)
+                              (command_argument_list
+                                (literal
+                                  (string_literal
+                                    (single_quote_string))))))
+                          (expression_statement
+                            (command_expression
+                              (identifier)
+                              (command_argument_list
+                                (literal
+                                  (string_literal
+                                    (single_quote_string)))))))))))))))
+        (expression_statement
+          (closure_call_expression
+            (identifier)
+            (closure
+              (expression_statement
+                (closure_call_expression
+                  (identifier)
+                  (closure
+                    (expression_statement
+                      (method_call
+                        (identifier)
+                        (argument_list))))))
+              (expression_statement
+                (closure_call_expression
+                  (identifier)
+                  (closure
+                    (expression_statement
+                      (command_expression
+                        (identifier)
+                        (command_argument_list
+                          (named_argument
+                            (identifier)
+                            (literal
+                              (string_literal
+                                (single_quote_string))))
+                          (named_argument
+                            (identifier)
+                            (literal
+                              (string_literal
+                                (single_quote_string)))))))))))))))))
+
+==================
+Scripted Pipeline
+==================
+node('linux') {
+    stage('Build') {
+        git url: 'https://github.com/org/repo.git', branch: 'main'
+        sh './gradlew assemble'
+    }
+    stage('Test') {
+        try {
+            sh './gradlew test'
+        } catch (Exception err) {
+            echo "Caught error"
+            currentBuild.result = 'FAILURE'
+        } finally {
+            junit 'build/test-results/**/*.xml'
+        }
+    }
+}
+---
+
+(source_file
+  (expression_statement
+    (method_call
+      (identifier)
+      (argument_list
+        (literal
+          (string_literal
+            (single_quote_string))))
+      (closure
+        (expression_statement
+          (method_call
+            (identifier)
+            (argument_list
+              (literal
+                (string_literal
+                  (single_quote_string))))
+            (closure
+              (expression_statement
+                (command_expression
+                  (identifier)
+                  (command_argument_list
+                    (named_argument
+                      (identifier)
+                      (literal
+                        (string_literal
+                          (single_quote_string))))
+                    (named_argument
+                      (identifier)
+                      (literal
+                        (string_literal
+                          (single_quote_string)))))))
+              (expression_statement
+                (command_expression
+                  (identifier)
+                  (command_argument_list
+                    (literal
+                      (string_literal
+                        (single_quote_string)))))))))
+        (expression_statement
+          (method_call
+            (identifier)
+            (argument_list
+              (literal
+                (string_literal
+                  (single_quote_string))))
+            (closure
+              (try_statement
+                (block
+                  (expression_statement
+                    (command_expression
+                      (identifier)
+                      (command_argument_list
+                        (literal
+                          (string_literal
+                            (single_quote_string)))))))
+                (catch_clause
+                  (catch_parameter
+                    (identifier)
+                    (identifier))
+                  (block
+                    (expression_statement
+                      (command_expression
+                        (identifier)
+                        (command_argument_list
+                          (literal
+                            (string_literal
+                              (double_quote_string
+                                (string_content)))))))
+                    (expression_statement
+                      (assignment_expression
+                        (field_access
+                          (identifier)
+                          (identifier))
+                        (literal
+                          (string_literal
+                            (single_quote_string)))))))
+                (finally_clause
+                  (block
+                    (expression_statement
+                      (command_expression
+                        (identifier)
+                        (command_argument_list
+                          (literal
+                            (string_literal
+                              (single_quote_string))))))))))))))))
+
+==================
+Pipeline Library
+==================
+@Library('pipeline-library@master')
+def deploy() {
+    echo 'Deploying'
+}
+---
+
+(source_file
+  (method_declaration
+    (annotation
+      (qualified_identifier
+        (identifier))
+      (annotation_argument_list
+        (literal
+          (string_literal
+            (single_quote_string)))))
+    (identifier)
+    (formal_parameters)
+    (block
+      (expression_statement
+        (command_expression
+          (identifier)
+          (command_argument_list
+            (literal
+              (string_literal
+                (single_quote_string)))))))))
