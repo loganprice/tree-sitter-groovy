@@ -91,4 +91,9 @@ clean:
 test:
 	$(TS) test
 
-.PHONY: all install uninstall clean test
+test-c: all
+	$(CC) -I. test/c_test.c lib$(LANGUAGE_NAME).a -o test/c_test
+	./test/c_test
+	$(RM) test/c_test
+
+.PHONY: all install uninstall clean test test-c

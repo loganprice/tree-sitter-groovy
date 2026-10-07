@@ -1,8 +1,9 @@
-// swift-tools-version:5.3
+// swift-tools-version: 5.9
 import PackageDescription
 
 let package = Package(
     name: "TreeSitterGroovy",
+    platforms: [.macOS(.v10_13), .iOS(.v11), .tvOS(.v12), .watchOS(.v5)],
     products: [
         .library(name: "TreeSitterGroovy", targets: ["TreeSitterGroovy"]),
     ],

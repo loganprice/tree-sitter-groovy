@@ -740,6 +740,7 @@ module.exports = grammar({
     )),
 
     binary_expression: $ => {
+      /** @type {Array<[RuleOrLiteral, number]>} */
       const table = [
         ['||', PREC.LOGICAL_OR],
         ['&&', PREC.LOGICAL_AND],
@@ -937,6 +938,11 @@ module.exports = grammar({
   }
 });
 
+/**
+ * @param {RuleOrLiteral} rule
+ * @param {RuleOrLiteral} separator
+ * @returns {Rule}
+ */
 function sep1(rule, separator) {
   return seq(rule, repeat(seq(separator, rule)));
 }
