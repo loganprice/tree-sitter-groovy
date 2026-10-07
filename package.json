@@ -1,9 +1,15 @@
 {
-  "name": "tree-sitter-groovy",
+  "name": "@loganprice/tree-sitter-groovy",
   "version": "0.1.0",
   "description": "Groovy grammar for tree-sitter",
-  "repository": "https://github.com/loganprice/tree-sitter-groovy",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loganprice/tree-sitter-groovy.git"
+  },
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "bindings/node",
   "types": "bindings/node",
   "keywords": [

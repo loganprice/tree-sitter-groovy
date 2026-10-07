@@ -49,13 +49,13 @@ Includes native and WebAssembly bindings for **Node.js**, **Rust**, **Go**, **Py
 
 Install:
 ```bash
-npm install tree-sitter-groovy tree-sitter
+npm install @loganprice/tree-sitter-groovy tree-sitter
 ```
 
 Usage:
 ```javascript
 const Parser = require('tree-sitter');
-const Groovy = require('tree-sitter-groovy');
+const Groovy = require('@loganprice/tree-sitter-groovy');
 
 const parser = new Parser();
 parser.setLanguage(Groovy);
