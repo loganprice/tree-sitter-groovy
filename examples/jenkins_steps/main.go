@@ -293,7 +293,7 @@ func AnalyzeJenkinsfile(filePath string, src []byte) (*PipelineReport, error) {
 `
 	stepQuery, err := tree_sitter.NewQuery(lang, stepQueryStr)
 	if err != nil {
-		return nil, fmt.Errorf("failed to compile step query: %w", err)
+		return nil, fmt.Errorf("failed to compile step query: %w", *err)
 	}
 	defer stepQuery.Close()
 
