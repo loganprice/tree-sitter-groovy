@@ -1,0 +1,55 @@
+pipeline {
+    agent any
+
+    environment {
+        APP_ENV = 'production'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checking out source code...'
+                git url: 'https://github.com/example/repo.git', branch: 'main'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Compiling application...'
+                sh 'make build'
+                dir('dist') {
+                    sh 'tar -czf app.tar.gz .'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'make test'
+                junit '**/target/*.xml'
+                timeout(time: 10, unit: 'MINUTES') {
+                    sh './integration-tests.sh'
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    echo 'Running custom deployment script'
+                    sh 'docker build -t myapp:latest .'
+                    sh 'docker push myapp:latest'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+        failure {
+            mail to: 'devops@example.com', subject: 'Build Failed!'
+        }
+    }
+}

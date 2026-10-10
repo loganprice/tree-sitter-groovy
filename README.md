@@ -43,6 +43,24 @@ Includes native and WebAssembly bindings for **Node.js**, **Rust**, **Go**, **Py
 
 ---
 
+## Documentation
+
+Comprehensive guides and references are available in the [`docs/`](docs) directory:
+
+| Topic | Guide | Description |
+| :--- | :--- | :--- |
+| **AST Reference** | [AST & Node Reference](docs/ast-reference.md) | Full catalog of node types, fields, operators, and literals |
+| **Tree-sitter Queries** | [Querying Guide](docs/queries.md) | Syntax, predicates (`#eq?`, `#match?`, `#any-of?`), and editor integration |
+| **Go** | [Go Integration Guide](docs/bindings/go.md) | Driver setup with `go-tree-sitter` (v0.25+), queries, and error handling |
+| **Python** | [Python Integration Guide](docs/bindings/python.md) | Parsing, AST inspection, and query execution |
+| **Rust** | [Rust Integration Guide](docs/bindings/rust.md) | Zero-copy parsing and query cursors with the `tree-sitter` crate |
+| **Node.js & WASM** | [Node.js & WASM Guide](docs/bindings/nodejs.md) | Native bindings and browser-ready WebAssembly via `web-tree-sitter` |
+| **Jenkinsfile** | [Jenkinsfile Recipe](docs/recipes/jenkinsfile.md) | Declarative/Scripted pipelines, Kubernetes pods, and container tracking |
+| **Gradle** | [Gradle Recipe](docs/recipes/gradle.md) | Plugins, dependencies, repositories, and task registrations |
+| **Groovy AST** | [Groovy AST Analysis](docs/recipes/groovy-ast-analysis.md) | Closures, traits, safe navigation (`?.`), and static code smells |
+
+---
+
 ## Language Bindings
 
 ### Node.js (JavaScript & TypeScript)
@@ -133,7 +151,7 @@ package main
 import (
 	"fmt"
 	tree_sitter "github.com/tree-sitter/go-tree-sitter"
-	tree_sitter_groovy "github.com/tree-sitter/tree-sitter-groovy/bindings/go"
+	tree_sitter_groovy "github.com/loganprice/tree-sitter-groovy/bindings/go"
 )
 
 func main() {
@@ -149,6 +167,16 @@ func main() {
 
 	fmt.Println(tree.RootNode().ToSexp())
 }
+```
+
+Check out [`examples/jenkins_steps`](examples/jenkins_steps) for an example demonstrating how to parse and query Jenkinsfiles to extract pipeline steps, stages, and arguments.
+Run it with:
+```bash
+go run ./examples/jenkins_steps
+# Or pass your own Jenkinsfile:
+go run ./examples/jenkins_steps /path/to/Jenkinsfile
+# Or format as JSON:
+go run ./examples/jenkins_steps -json
 ```
 
 ---

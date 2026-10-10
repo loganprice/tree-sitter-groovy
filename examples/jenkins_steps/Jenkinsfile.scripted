@@ -1,0 +1,46 @@
+podTemplate(name: 'go-build-pod', label: 'go-build-agent', yaml: '''
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    component: go-ci
+spec:
+  containers:
+  - name: golang
+    image: golang:1.24-alpine
+    command: ['cat']
+    tty: true
+  - name: helm
+    image: alpine/helm:3.14
+    command: ['cat']
+    tty: true
+''') {
+    node('go-build-agent') {
+        stage('Checkout') {
+            echo 'Checking out Go repository...'
+            checkout scm
+        }
+
+        stage('Test & Build') {
+            container('golang') {
+                echo 'Running unit tests in golang container...'
+                sh 'go test -v -cover ./...'
+                echo 'Building Go binary...'
+                sh 'CGO_ENABLED=0 go build -ldflags="-s -w" -o dist/app .'
+            }
+        }
+
+        stage('Package & Deploy') {
+            container('helm') {
+                echo 'Linting Helm chart in helm container...'
+                sh 'helm lint ./charts/my-app'
+                echo 'Deploying to Kubernetes staging namespace...'
+                sh 'helm upgrade --install my-app ./charts/my-app --namespace staging'
+            }
+        }
+
+        stage('Clean') {
+            cleanWs()
+        }
+    }
+}

@@ -1,0 +1,62 @@
+pipeline {
+    agent {
+        kubernetes {
+            yaml '''
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    component: ci-build
+spec:
+  containers:
+  - name: maven
+    image: maven:3.9.6-eclipse-temurin-17
+    command: ['cat']
+    tty: true
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:debug
+    command: ['cat']
+    tty: true
+'''
+        }
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checking out source code in jnlp container...'
+                git url: 'https://github.com/example/java-service.git', branch: 'main'
+            }
+        }
+
+        stage('Build & Test') {
+            steps {
+                container('maven') {
+                    echo 'Building with Maven in maven container...'
+                    sh 'mvn -B clean verify'
+                    junit '**/target/surefire-reports/*.xml'
+                }
+            }
+        }
+
+        stage('Build Container Image') {
+            steps {
+                container('kaniko') {
+                    echo 'Building OCI image using Kaniko...'
+                    sh '/kaniko/executor --context `pwd` --destination myregistry/service:latest --cache=true'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            container('maven') {
+                cleanWs()
+            }
+        }
+        failure {
+            mail to: 'devops@example.com', subject: 'Kubernetes Declarative Pipeline Failed'
+        }
+    }
+}
